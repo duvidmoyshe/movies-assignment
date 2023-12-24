@@ -1,0 +1,15 @@
+<div *ngIf="movie$ | async as movie">
+  <h2>{{ movie.name }}</h2>
+</div>
+<div *ngIf="bookings$ | async as bookings">
+  <div *ngFor="let booking of bookings" class="booking-container">
+    <p class="show-time">Show Time: {{ booking.showTime | date: 'medium' }}</p>
+    <p class="available-seats">Available Seats: {{booking.capacity - booking.booked }}</p>
+    <div class="tickets-container">
+      <button (click)="plusOrMinus(false, booking)">-</button>
+      <span class="ticket-count">{{ booking.left }}</span>
+      <button (click)="plusOrMinus(true, booking)">+</button>
+    </div>
+    <button [disabled]="booking.left == 0" class="book-button" (click)="bookTickets(booking)">Book Tickets</button>
+  </div>
+</div>
